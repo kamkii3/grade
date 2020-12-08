@@ -20,7 +20,11 @@ const App: React.FC<IGrade> = () => {
   const submitGrade = () => {
     const test = { names, grade };
     const gradeName = [...total, test];
-    setTotal(gradeName);
+    if (test.grade === "" || test.names === "") {
+      alert("กรุณากรอกข้อมูล");
+    } else {
+      setTotal(gradeName);
+    }
   };
   const nameOfgrade = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNames(e.target.value);
@@ -28,6 +32,7 @@ const App: React.FC<IGrade> = () => {
 
   const calGrade = (e: React.ChangeEvent<HTMLInputElement>) => {
     const points = parseFloat(e.target.value);
+
     if (points >= 80) {
       setGrade("A");
     } else if (points >= 75) {
@@ -49,15 +54,15 @@ const App: React.FC<IGrade> = () => {
 
   const reSet = () => {
     setTotal([]);
-  }
+  };
 
   return (
     <form>
       <div>
         <label>ชื่อ</label>
-        <input type="text" name="names" onChange={nameOfgrade} />
-        <label>เกรด</label>
-        <input type="number" name="gpax" onChange={calGrade} />
+        <input type="text" name="names" onChange={nameOfgrade} required />
+        <label>คะแนน</label>
+        <input type="number" name="gpax" onChange={calGrade} required />
       </div>
       <button type="button" onClick={submitGrade}>
         submit
@@ -66,7 +71,7 @@ const App: React.FC<IGrade> = () => {
         Reset
       </button>
 
-      <table style={{border: '1px solid'}}>
+      <table style={{ border: "1px solid" }}>
         <tr>
           <th>ชื่อ</th>
           <th>เกรด</th>
